@@ -62,8 +62,11 @@ public class SiaKadMini {
     }
 
     static double rata2(double[] arr, int n) {
-        // TODO
-        return 0.0;
+        double sumNilai = Arrays.stream(arr).sum()
+        double jumlahNilai = arr.length
+        double rata = sumNilai/jumlahNilai
+        // Todo
+        return rata;
     }
 
     static int[] hitungDistribusiGrade(char[] grade, int n) {
