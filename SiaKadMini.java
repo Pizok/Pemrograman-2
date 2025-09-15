@@ -21,7 +21,7 @@ public class SiaKadMini {
     static double hitungAkhir(double tgs, double uts, double uas) {
         double nilaiAkhir = (tgs*30/100) + (uts*30/100) + (uas*40/100);
         // TODO: Tugas 30%, UTS 30%, UAS 40%
-        return nilaiAkhir; // ganti
+        return nilaiAkhir;
     }
 
     static char konversiGrade(double akhir) {
@@ -43,34 +43,75 @@ public class SiaKadMini {
 
     // ====== TAMPILAN TABEL ======
     static void tampilTabel(String[] nama, int[] tgs, int[] uts, int[] uas, double[] akhir, char[] grade, int n) {
-        // TODO: cetak tabel rapi dengan loop
+    
+    int maxNama = 10; // minimal panjang
+    for (int i = 0; i < n; i++) {
+        if (nama[i].length() > maxNama) {
+            maxNama = nama[i].length();
+        }
+    }
+    maxNama += 2; // tambah padding
+
+    // Cetak header
+    System.out.printf("%-5s | %-" + maxNama + "s | %6s | %4s | %4s | %12s | %s\n", "Idx", "Nama", "Tugas", "UTS", "UAS", "Nilai Akhir", "Grade");
+    System.out.println("=".repeat(maxNama + 50));
+
+    // Cetak isi tabel
+    for (int i = 0; i < n; i++) {
+        System.out.printf("%-5d | %-" + maxNama + "s | %6d | %4d | %4d | %12.2f | %c\n", i+1, nama[i], tgs[i], uts[i], uas[i], akhir[i], grade[i]);
+    }
+
+    System.out.println("==========================================");
+    System.out.printf("Menampilkan %d data\n", n);
+    // TODO: cetak tabel rapi dengan loop
     }
 
     // ====== STATISTIK ======
     static double min(double[] arr, int n) {
-        Arrays.sort(arr);
-        double minimal = arr[0]; 
+        double minimal = 100;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] < minimal) {
+                minimal = arr[i];
+            }
+        }
         // TODO
         return minimal;
     }
 
     static double max(double[] arr, int n) {
-        Arrays.sort(arr);
-        double maxNilai = arr[arr.length-1];
+        double maximal = 0;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] > maximal) {
+                maximal = arr[i];
+            }
+        }
         // TODO
-        return maxNilai;
+        return maximal;
     }
 
     static double rata2(double[] arr, int n) {
-        double sumNilai = Arrays.stream(arr).sum()
-        double jumlahNilai = arr.length
-        double rata = sumNilai/jumlahNilai
+        double sumNilai = Arrays.stream(arr).sum();
+        double jumlahNilai = n;
+        double rata = sumNilai/jumlahNilai;
         // Todo
         return rata;
     }
 
     static int[] hitungDistribusiGrade(char[] grade, int n) {
         int[] d = new int[5]; // A,B,C,D,E
+        for (int i = 0; i < n; i++) {
+            if (grade[i] == 'A') {
+                d[0] += 1;
+            } else if (grade[i] == 'B') {
+                d[1] += 1;
+            } else if (grade[i] == 'C') {
+                d[2] += 1;
+            } else if (grade[i] == 'D') {
+                d[3] += 1;
+            } else {
+                d[4] += 1;
+            }
+        }
         // TODO: loop isi d[0]..d[4]
         return d;
     }
@@ -79,6 +120,34 @@ public class SiaKadMini {
     static void histogram(double[] akhir, int n) {
         // Rentang: A=85-100, B=75-84, C=60-74, D=45-59, E=<45
         // TODO: hitung dengan loop
+        int[] d = new int[5]; // A, B, C, D, E
+        for (int i = 0; i < n; i++) {
+            if (akhir[i] < 45) {            //E
+                d[4] += 1;
+            } else if (akhir[i] <= 59) {    //D
+                d[3] += 1;
+            } else if (akhir[i] <= 74) {    //C
+                d[2] += 1;
+            } else if (akhir[i] <= 84) {    //B
+                d[1] += 1;
+            } else {                        //A
+                d[0] += 1;
+            }
+        }
+
+        System.out.println("Histogram Mahasiswa\n");
+        
+        for (int i = 0; i < 5; i++) {
+            char grade = (char) ('A' + i);   // 'A' (65) + i → A, B, C, D, E
+            System.out.print(grade + ": ");
+    
+            for (int j = 0; j < d[i]; j++) {
+            System.out.print("*");
+            }
+
+            System.out.println();
+
+        }
         // Cetak bintang sesuai jumlah
         // for (int i=0; i<nb; i++) System.out.print("*");
         // lalu println per baris
@@ -87,18 +156,85 @@ public class SiaKadMini {
     // ====== SORTING ======
     static void sortByAkhir(String[] nama, int[] tgs, int[] uts, int[] uas, double[] akhir, char[] grade, int n, boolean asc) {
         // Boleh bubble/selection, tapi SWAP semua kolom saat tukar posisi
-        // TODO: nested loop sort
+        // Bubble sort
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                boolean condition = asc ? (akhir[j] > akhir[j + 1]) : (akhir[j] < akhir[j + 1]);
+                if (condition) {
+                    swapDouble(akhir, j, j + 1);
+                    swapChar(grade, j, j + 1);
+                    swapInt(tgs, j, j + 1);
+                    swapInt(uts, j, j + 1);
+                    swapInt(uas, j, j + 1);
+                    swapString(nama, j, j + 1);
+                }
+            }
+        }
+
+        // Show result
+        for (int i = 0; i < n; i++) {
+            System.out.println(nama[i] +
+                            " | TGS=" + tgs[i] +
+                            " | UTS=" + uts[i] +
+                            " | UAS=" + uas[i] +
+                            " | Akhir=" + akhir[i] +
+                            " | Grade=" + grade[i]);
+        }
+    }
+
+    // Swap
+    static void swapInt(int[] arr, int i, int j) {
+        int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+    }
+    static void swapDouble(double[] arr, int i, int j) {
+        double temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+    }
+    static void swapChar(char[] arr, int i, int j) {
+        char temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+    }
+    static void swapString(String[] arr, int i, int j) {
+        String temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+    // TODO: nested loop sort
     }
 
     // ====== SEARCH & EDIT ======
     static int searchNama(String[] nama, int n, String key) {
         // Case-insensitive
         // TODO: loop linear search
-        return -1;
+        int index = -1;
+        for (int i = 0; i < n; i++) {
+            if (nama[i].equalsIgnoreCase(key)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     static void editNilai(Scanner in, int idx, int[] tgs, int[] uts, int[] uas, double[] akhir, char[] grade) {
         // TODO: minta input T/U/U, validasi 0-100, recalc akhir & grade
+        int ubah = inputIntInRange(in, "Pilih nilai yang ingin diubah (1: Tugas, 2: UTS, 3: UAS): ", 1, 3);
+
+        switch (ubah) {
+            case 1:
+                int tugas = inputIntInRange(in, "Nilai tugas baru: ", 0, 100);   //Input nilai baru
+                tgs[idx] = tugas;                                                               //Assign
+                akhir[idx] = hitungAkhir(tgs[idx], uts[idx], uas[idx]);                         //Kalkulasi lagi
+                grade[idx] = konversiGrade(akhir[idx]);
+                break;
+            case 2:
+                int utsBaru = inputIntInRange(in, "Nilai UTS baru: ", 0, 100);
+                uts[idx] = utsBaru;
+                akhir[idx] = hitungAkhir(tgs[idx], uts[idx], uas[idx]);
+                grade[idx] = konversiGrade(akhir[idx]);
+                break;
+            case 3:
+                int uasBaru = inputIntInRange(in, "Nilai UAS baru: ", 0, 100);
+                uas[idx] = uasBaru;
+                akhir[idx] = hitungAkhir(tgs[idx], uts[idx], uas[idx]);
+                grade[idx] = konversiGrade(akhir[idx]);
+                break;
+        }
     }
 
     // ====== MAIN ======
