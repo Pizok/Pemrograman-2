@@ -1,7 +1,7 @@
 public class UrutanOperasi {
     public static void main(String[] args) {
-        int a = 10;
-        int b = 20;
+        int a = -0;
+        int b = -0;
         int jumlah = a + b;
         int kali = a * b;
         int pengurangan = b - a;

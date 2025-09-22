@@ -19,12 +19,13 @@ public class SiaKadMini {
 
     // ====== PERHITUNGAN NILAI ======
     static double hitungAkhir(double tgs, double uts, double uas) {
-        double nilaiAkhir = (tgs*30/100) + (uts*30/100) + (uas*40/100);
         // TODO: Tugas 30%, UTS 30%, UAS 40%
+        double nilaiAkhir = (tgs*30/100) + (uts*30/100) + (uas*40/100);
         return nilaiAkhir;
     }
 
     static char konversiGrade(double akhir) {
+        // TODO: A=85-100, B=75-84, C=60-74, D=45-59, E=<45
         char grade;
         if (akhir < 45) {
             grade = 'E';
@@ -37,33 +38,31 @@ public class SiaKadMini {
         } else {
             grade = 'A';
         }
-        // TODO: A=85-100, B=75-84, C=60-74, D=45-59, E=<45
-        return grade; // ganti
+        return grade;
     }
 
     // ====== TAMPILAN TABEL ======
     static void tampilTabel(String[] nama, int[] tgs, int[] uts, int[] uas, double[] akhir, char[] grade, int n) {
-    
-    int maxNama = 10; // minimal panjang
-    for (int i = 0; i < n; i++) {
-        if (nama[i].length() > maxNama) {
-            maxNama = nama[i].length();
+        // TODO: cetak tabel rapi dengan loop
+        int maxNama = 10; // minimal panjang
+        for (int i = 0; i < n; i++) {
+            if (nama[i].length() > maxNama) {
+                maxNama = nama[i].length();
+            }
         }
-    }
-    maxNama += 2; // tambah padding
+        maxNama += 2; // tambah padding
 
-    // Cetak header
-    System.out.printf("%-5s | %-" + maxNama + "s | %6s | %4s | %4s | %12s | %s\n", "Idx", "Nama", "Tugas", "UTS", "UAS", "Nilai Akhir", "Grade");
-    System.out.println("=".repeat(maxNama + 50));
+        // Cetak header
+        System.out.printf("%-5s | %-" + maxNama + "s | %6s | %4s | %4s | %12s | %s\n", "Idx", "Nama", "Tugas", "UTS", "UAS", "Nilai Akhir", "Grade");
+        System.out.println("=".repeat(maxNama + 50));
 
-    // Cetak isi tabel
-    for (int i = 0; i < n; i++) {
-        System.out.printf("%-5d | %-" + maxNama + "s | %6d | %4d | %4d | %12.2f | %c\n", i+1, nama[i], tgs[i], uts[i], uas[i], akhir[i], grade[i]);
-    }
+        // Cetak isi tabel
+        for (int i = 0; i < n; i++) {
+            System.out.printf("%-5d | %-" + maxNama + "s | %6d | %4d | %4d | %12.2f | %c\n", i+1, nama[i], tgs[i], uts[i], uas[i], akhir[i], grade[i]);
+        }
 
-    System.out.println("==========================================");
-    System.out.printf("Menampilkan %d data\n", n);
-    // TODO: cetak tabel rapi dengan loop
+        System.out.println("=".repeat(maxNama + 50));
+        System.out.printf("Menampilkan %d data\n", n);
     }
 
     // ====== STATISTIK ======
@@ -98,6 +97,7 @@ public class SiaKadMini {
     }
 
     static int[] hitungDistribusiGrade(char[] grade, int n) {
+        // TODO: loop isi d[0]..d[4]
         int[] d = new int[5]; // A,B,C,D,E
         for (int i = 0; i < n; i++) {
             if (grade[i] == 'A') {
@@ -112,7 +112,6 @@ public class SiaKadMini {
                 d[4] += 1;
             }
         }
-        // TODO: loop isi d[0]..d[4]
         return d;
     }
 
@@ -120,6 +119,9 @@ public class SiaKadMini {
     static void histogram(double[] akhir, int n) {
         // Rentang: A=85-100, B=75-84, C=60-74, D=45-59, E=<45
         // TODO: hitung dengan loop
+        // Cetak bintang sesuai jumlah
+        // for (int i=0; i<nb; i++) System.out.print("*");
+        // lalu println per baris
         int[] d = new int[5]; // A, B, C, D, E
         for (int i = 0; i < n; i++) {
             if (akhir[i] < 45) {            //E
@@ -148,14 +150,12 @@ public class SiaKadMini {
             System.out.println();
 
         }
-        // Cetak bintang sesuai jumlah
-        // for (int i=0; i<nb; i++) System.out.print("*");
-        // lalu println per baris
     }
 
     // ====== SORTING ======
     static void sortByAkhir(String[] nama, int[] tgs, int[] uts, int[] uas, double[] akhir, char[] grade, int n, boolean asc) {
         // Boleh bubble/selection, tapi SWAP semua kolom saat tukar posisi
+        // TODO: nested loop sort
         // Bubble sort
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - 1 - i; j++) {
@@ -194,7 +194,6 @@ public class SiaKadMini {
     }
     static void swapString(String[] arr, int i, int j) {
         String temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
-    // TODO: nested loop sort
     }
 
     // ====== SEARCH & EDIT ======
@@ -266,7 +265,7 @@ public class SiaKadMini {
 
         // Loop menu
         while (true) {
-            System.out.println("\n==== MENU SIAKAD MINI ====");
+            System.out.println("\n\n==== MENU SIAKAD MINI ====");
             System.out.println("1. Tampilkan Tabel Nilai");
             System.out.println("2. Statistik (min, max, rata-rata, distribusi grade)");
             System.out.println("3. Histogram Nilai Akhir");
@@ -274,12 +273,14 @@ public class SiaKadMini {
             System.out.println("5. Search Mahasiswa by Nama");
             System.out.println("6. Edit Nilai Mahasiswa");
             System.out.println("0. Exit");
+            System.out.println("===========================\n\n"); //tambahan pemisah
             int pilih = inputIntInRange(in, "Pilih: ", 0, 6);
 
             if (pilih == 0) break;
 
             switch (pilih) {
                 case 1:
+                    System.out.println("Output: "); //Tambah keterangan
                     tampilTabel(nama, tgs, uts, uas, akhir, grade, n);
                     break;
                 case 2:
@@ -287,13 +288,16 @@ public class SiaKadMini {
                     double mx = max(akhir, n);
                     double rt = rata2(akhir, n);
                     int[] dist = hitungDistribusiGrade(grade, n);
+                    System.out.println("Output: "); //Tambah keterangan
                     System.out.printf("Min: %.2f  Max: %.2f  Rata2: %.2f\n", mn, mx, rt);
                     System.out.println("A=" + dist[0] + " B=" + dist[1] + " C=" + dist[2] + " D=" + dist[3] + " E=" + dist[4]);
                     break;
                 case 3:
+                    System.out.println("Output: "); //Tambah keterangan
                     histogram(akhir, n);
                     break;
                 case 4:
+                    System.out.println("Output: "); //Tambah keterangan
                     int mode = inputIntInRange(in, "Mode (1=ASC, 2=DESC): ", 1, 2);
                     sortByAkhir(nama, tgs, uts, uas, akhir, grade, n, mode==1);
                     System.out.println("Data telah di-sort.");
@@ -302,6 +306,7 @@ public class SiaKadMini {
                     System.out.print("Cari nama: ");
                     String key = in.nextLine();
                     int idx = searchNama(nama, n, key);
+                    System.out.println("Output: "); //Tambah keterangan
                     if (idx >= 0) {
                         System.out.printf("Ketemu: %s | Tgs:%d UTS:%d UAS:%d | Akhir:%.2f | Grade:%c\n",
                                 nama[idx], tgs[idx], uts[idx], uas[idx], akhir[idx], grade[idx]);
@@ -312,6 +317,7 @@ public class SiaKadMini {
                 case 6:
                     int idx2 = inputIntInRange(in, "Index mahasiswa (1-" + n + "): ", 1, n);
                     editNilai(in, idx2-1, tgs, uts, uas, akhir, grade);
+                    System.out.println("Output: "); //Tambah keterangan
                     System.out.println("Nilai diperbarui.");
                     break;
             }
