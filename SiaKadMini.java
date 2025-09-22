@@ -171,18 +171,10 @@ public class SiaKadMini {
             }
         }
 
-        // Show result
-        for (int i = 0; i < n; i++) {
-            System.out.println(nama[i] +
-                            " | TGS=" + tgs[i] +
-                            " | UTS=" + uts[i] +
-                            " | UAS=" + uas[i] +
-                            " | Akhir=" + akhir[i] +
-                            " | Grade=" + grade[i]);
-        }
+        tampilTabel(nama, tgs, uts, uas, akhir, grade, n); //Menampilkan data yang telah disort
     }
 
-    // Swap
+    //Method untuk Swap
     static void swapInt(int[] arr, int i, int j) {
         int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
     }
@@ -197,17 +189,31 @@ public class SiaKadMini {
     }
 
     // ====== SEARCH & EDIT ======
-    static int searchNama(String[] nama, int n, String key) {
-        // Case-insensitive
-        // TODO: loop linear search
-        int index = -1;
-        for (int i = 0; i < n; i++) {
-            if (nama[i].equalsIgnoreCase(key)) {
-                index = i;
-                break;
-            }
+    static int[] searchNama(String[] nama, int n, String key) {
+    //Menghitung dulu apakah ada nama yang match
+    int matchCount = 0;
+    for (int i = 0; i < n; i++) {
+        if (nama[i].toLowerCase().contains(key)) {
+            matchCount++;
         }
-        return index;
+    }
+    
+    //Kalau tidak ada yang match, return array kosong
+    if (matchCount == 0) {
+        return new int[0];
+    }
+    
+    //Kalau ada, baru membuat array yang berisi index nama
+    int[] index = new int[matchCount];
+    int arrayIndex = 0;
+    for (int i = 0; i < n; i++) {
+        if (nama[i].toLowerCase().contains(key)) {
+            index[arrayIndex] = i;
+            arrayIndex++;
+        }
+    }
+    
+    return index;
     }
 
     static void editNilai(Scanner in, int idx, int[] tgs, int[] uts, int[] uas, double[] akhir, char[] grade) {
@@ -269,11 +275,11 @@ public class SiaKadMini {
             System.out.println("1. Tampilkan Tabel Nilai");
             System.out.println("2. Statistik (min, max, rata-rata, distribusi grade)");
             System.out.println("3. Histogram Nilai Akhir");
-            System.out.println("4. Sorting by Nilai Akhir [ASC, 2=DESC]");
+            System.out.println("4. Sorting by Nilai Akhir [1=ASC, 2=DESC]");
             System.out.println("5. Search Mahasiswa by Nama");
             System.out.println("6. Edit Nilai Mahasiswa");
             System.out.println("0. Exit");
-            System.out.println("===========================\n\n"); //tambahan pemisah
+            System.out.println("============================\n"); //tambahan pemisah
             int pilih = inputIntInRange(in, "Pilih: ", 0, 6);
 
             if (pilih == 0) break;
@@ -297,28 +303,34 @@ public class SiaKadMini {
                     histogram(akhir, n);
                     break;
                 case 4:
-                    System.out.println("Output: "); //Tambah keterangan
                     int mode = inputIntInRange(in, "Mode (1=ASC, 2=DESC): ", 1, 2);
-                    sortByAkhir(nama, tgs, uts, uas, akhir, grade, n, mode==1);
+                    System.out.println("\nOutput: "); //Tambah keterangan
                     System.out.println("Data telah di-sort.");
+                    sortByAkhir(nama, tgs, uts, uas, akhir, grade, n, mode==1);
                     break;
                 case 5:
                     System.out.print("Cari nama: ");
-                    String key = in.nextLine();
-                    int idx = searchNama(nama, n, key);
-                    System.out.println("Output: "); //Tambah keterangan
-                    if (idx >= 0) {
-                        System.out.printf("Ketemu: %s | Tgs:%d UTS:%d UAS:%d | Akhir:%.2f | Grade:%c\n",
+                    String key = in.nextLine().trim();
+                    int[] idxMatch = searchNama(nama, n, key);
+                    System.out.println("\nOutput: "); //Tambah keterangan
+                    if (idxMatch.length > 0) {    //Ubah pencarian sehingga bisa menampilkan > 1 data
+                        System.out.println("Ditemukan " + idxMatch.length + " hasil:");
+                        // This is the for-each loop in action
+                        for (int idx : idxMatch) {
+                            System.out.printf("Ketemu: %s | Tgs:%d UTS:%d UAS:%d | Akhir:%.2f | Grade:%c\n",
                                 nama[idx], tgs[idx], uts[idx], uas[idx], akhir[idx], grade[idx]);
+                        }
                     } else {
-                        System.out.println("Tidak ditemukan.");
+                        System.out.println("Nama tidak ditemukan.");
                     }
                     break;
                 case 6:
+                    tampilTabel(nama, tgs, uts, uas, akhir, grade, n); //Menampilkan tabel
                     int idx2 = inputIntInRange(in, "Index mahasiswa (1-" + n + "): ", 1, n);
                     editNilai(in, idx2-1, tgs, uts, uas, akhir, grade);
-                    System.out.println("Output: "); //Tambah keterangan
+                    System.out.println("\nOutput: "); //Tambah keterangan
                     System.out.println("Nilai diperbarui.");
+                    tampilTabel(nama, tgs, uts, uas, akhir, grade, n); //Menampilkan tabel untuk melihat perubahan
                     break;
             }
         }
