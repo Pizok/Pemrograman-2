@@ -53,12 +53,14 @@ public class SiaKadMini {
         maxNama += 2; // tambah padding
 
         // Cetak header
-        System.out.printf("%-5s | %-" + maxNama + "s | %6s | %4s | %4s | %12s | %s\n", "Idx", "Nama", "Tugas", "UTS", "UAS", "Nilai Akhir", "Grade");
+        System.out.printf("%-5s | %-" + maxNama + "s | %6s | %4s | %4s | %12s | %s\n", 
+        "Idx", "Nama", "Tugas", "UTS", "UAS", "Nilai Akhir", "Grade");
         System.out.println("=".repeat(maxNama + 50));
 
         // Cetak isi tabel
         for (int i = 0; i < n; i++) {
-            System.out.printf("%-5d | %-" + maxNama + "s | %6d | %4d | %4d | %12.2f | %c\n", i+1, nama[i], tgs[i], uts[i], uas[i], akhir[i], grade[i]);
+            System.out.printf("%-5d | %-" + maxNama + "s | %6d | %4d | %4d | %12.2f | %c\n",
+             i+1, nama[i], tgs[i], uts[i], uas[i], akhir[i], grade[i]);
         }
 
         System.out.println("=".repeat(maxNama + 50));
