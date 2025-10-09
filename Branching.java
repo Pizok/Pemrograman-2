@@ -5,10 +5,14 @@ public class Branching {
         Scanner scan = new Scanner(System.in);
         Double nilai;
         Character grade;
-
-        try(scan) {
+        
+        while (true) {
             System.out.println("Masukkan nilai: ");
             nilai = scan.nextDouble();
+
+            if (nilai >= 0 && nilai < 101) {
+                break;
+            }
         }
 
         if (nilai < 40) {
@@ -24,9 +28,7 @@ public class Branching {
         }
         
         System.out.printf("Grade dari nilai %.2f adalah %c\n", nilai, grade);
-    }
     
-    
-
-    
+        scan.close();
+    } 
 }

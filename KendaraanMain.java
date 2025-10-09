@@ -44,7 +44,7 @@ class Mobil extends Kendaraan{
     }
 
     public void jalan() {
-        System.out.printf("Mobil %s berjalan dengan kecepatan %d km/jam\n", getMerk(), getKecepatan());
+        System.out.printf("Motor %s berjalan dengan kecepatan %d km/jam\n", getMerk(), getKecepatan());
     }
 }
 
@@ -62,7 +62,7 @@ class Motor extends Kendaraan{
     }
 
     public void jalan() {
-        System.out.printf("Mobil %s berjalan dengan kecepatan %d km/jam\n", getMerk(), getKecepatan());
+        System.out.printf("Motor %s berjalan dengan kecepatan %d km/jam\n", getMerk(), getKecepatan());
     }
 }
 
@@ -75,7 +75,6 @@ public class KendaraanMain {
         //Tampilkan data
         System.out.println(kendaraan1.getMerk());
         System.out.println(kendaraan1.getKecepatan());
-        kendaraan1.getKecepatan();
         mobil1.jalan();
 
         System.out.println("\nKendaraan 2:");
