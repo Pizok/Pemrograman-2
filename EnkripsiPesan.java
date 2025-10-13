@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 
 public class EnkripsiPesan {
-    static int nEncrypt = 1; //
-    static int nDecrypt = 1; //
+    static int nEncrypt = 0; // Insiasi variabel untuk jumlah pesan enkrisi yang sudah dibuat
+    static int nDecrypt = 0; // Insiasi variabel untuk jumlah pesan dekripsi yang sudah dibuat
 
     // Fungsi untuk enkripsi pesan dari user
     public static void Enkripsi(String pesan) {
