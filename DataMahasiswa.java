@@ -44,7 +44,7 @@ class Mahasiswa {
 
     public void tampilkanData(){
         System.out.println("Nama: " + this.nama);
-        System.out.println("Umur: " + this.nama);
+        System.out.println("Umur: " + this.age);
         System.out.println("Kategori: " + kategoriUmur());
         System.out.println("Tahun lahir: " + tahunLahir());
     }
@@ -52,12 +52,12 @@ class Mahasiswa {
 
 
 public class DataMahasiswa {
-    public static int input(Scanner scan, String message, int min, int max) {
+    public static int input(Scanner scan, String perintah, int min, int max) {
         int value = 0;  
         boolean valid = false;
 
         while (valid == false) {
-            System.out.print(message);
+            System.out.print(perintah);
             value = scan.nextInt(); 
 
             if (value >= min && value <= max) {
