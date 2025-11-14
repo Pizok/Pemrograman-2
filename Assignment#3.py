@@ -3,8 +3,8 @@ class PomBensin:
         self.bensin = [
             Super(),
             Vpower(),
-            Vpower_Nitro()
-            ]
+            Vpower_Nitro(),
+            Vpower_Diesel()]
 
 class Bensin():
     def __init__(self, harga, nama):
