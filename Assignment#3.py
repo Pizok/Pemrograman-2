@@ -1,6 +1,10 @@
 class PomBensin:
     def __init__(self):
-        self.bensin = [Super()]
+        self.bensin = [
+            Super(),
+            Vpower(),
+            Vpower_Nitro()
+            ]
 
 class Bensin():
     def __init__(self, harga, nama):
@@ -16,6 +20,36 @@ class Bensin():
 class Super(Bensin):
     def __init__(self):
         super().__init__(12000, "Super Ron 92")
+
+    def hitung_liter(self, liter):
+        return super().hitung_liter(liter)
+
+    def hitung_rupiah(self, rupiah):
+        return super().hitung_rupiah(rupiah)
+
+class Vpower(Bensin):
+    def __init__(self):
+        super().__init__(13500, "V-Power Ron 95")
+
+    def hitung_liter(self, liter):
+        return super().hitung_liter(liter)
+
+    def hitung_rupiah(self, rupiah):
+        return super().hitung_rupiah(rupiah)
+    
+class Vpower_Nitro(Bensin):
+    def __init__(self):
+        super().__init__(14000, "V-Power Nitro+ Ron 98")
+
+    def hitung_liter(self, liter):
+        return super().hitung_liter(liter)
+
+    def hitung_rupiah(self, rupiah):
+        return super().hitung_rupiah(rupiah)
+    
+class Vpower_Diesel(Bensin):
+    def __init__(self):
+        super().__init__(14100, "V-Power Diesel CN 51")
 
     def hitung_liter(self, liter):
         return super().hitung_liter(liter)
@@ -42,11 +76,12 @@ def main():
     while True:
         print("==== Selamat Datang di SPBU Shell ====")
         print("Pilihan jenis bensin:")
-        print("1. Super (Ron 92)")
-        print("2. V-Power (Ron 95)")
-        print("3. V-Power Nitro+ (Ron 98)")
+        print("1. Super Ron 92")
+        print("2. V-Power Ron 95")
+        print("3. V-Power Nitro+ Ron 98")
+        print("4. V-Power Diesel CN 51")
 
-        pilihan = int(customInput("Jenis bensin (1, 2, 3): ", 1, 3))
+        pilihan = int(customInput("Jenis bensin (1, 2, 3, 4): ", 1, 4))
 
         b = pb.bensin[pilihan-1]
         print(f"\nJenis Bensin: {b.nama}")
@@ -77,7 +112,6 @@ def main():
         if selesai != "y":
             print("Terima kasih sudah mengisi bensin di Shell, selamat jalan dan selamat sampai tujuan!")
             break
-
 
 main()
 
